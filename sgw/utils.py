@@ -2,6 +2,10 @@ import numpy as np
 import scipy as sp
 from scipy import sparse
 from scipy.spatial import distance_matrix
+from geosketch import gs
+import kmapper as km
+import umap
+import sklearn
 
 def sot_sinkhorn_l1_sparse(a,b,C,eps,m,nitermax=10000,stopthr=1e-8,verbose=False):
     """ Solve the unnormalized optimal transport with l1 penalty in sparse matrix format.
@@ -122,3 +126,57 @@ def recover_full_coupling(
     P_full = sot_sinkhorn_l1_sparse(a, b, C_sparse, eps, m, nitermax=nitermax, stopthr=stopthr)
     
     return P_full
+
+
+def subsample_data(
+    X: np.ndarray,
+    method: str = 'geosketch', 
+    random_state: int = 1,
+    gs_N: int = 50,
+    gs_replace: bool = False, # This means whether draw multiple samples from the same covering box.
+    gs_k = 'auto',
+    gs_alpha: float = 0.1,
+    gs_max_iter: int = 200,
+    km_proj_method: str='self', # 'self', 'top_dim', 'umap'
+    km_proj_dim: int = 2,
+    km_projection = None,
+    km_n_cubes = 10,
+    km_perc_overlap = 0.2,
+    km_dbscan_eps = 0.5,
+    km_dbscan_min_sample = 5,
+    km_centroid_dimred = 'self',
+):
+    if method == 'geosketch':
+        idx = gs(X, 
+            gs_N, 
+            replace=gs_replace, 
+            k=gs_k, 
+            alpha=gs_alpha, 
+            max_iter=gs_max_iter,
+            seed=random_state)
+    elif method == 'mapper':
+        mapper = km.KeplerMapper(verbose=0)
+        if km_proj_method == 'self':
+            projection = [i for i in range(X.shape[1])]
+        elif km_proj_method == 'top_dim':
+            projection = [i for i in range(km_proj_dim)]
+        elif km_proj_method == 'umap':
+            projection = umap.UMAP(n_components=km_proj_dim)
+        elif km_proj_method == 'user':
+            projection = km_projection
+        projected_data = mapper.fit_transform(X, projection=projection)
+        cover = km.Cover(n_cubes=km_n_cubes, perc_overlap=km_perc_overlap)
+        graph = mapper.map(projected_data, cover=cover, clusterer=sklearn.cluster.DBSCAN(eps=km_dbscan_eps, min_samples=km_dbscan_min_sample))
+        
+        idx = []
+        if km_centroid_dimred == 'self':
+            XX = X.copy()
+        elif km_centroid_dimred == 'projection':
+            XX = projected_data.copy()
+        for node in graph['nodes']:
+            tmp_idx = graph['nodes'][node]
+            tmp_X = XX[tmp_idx,:]
+            tmp_D = distance_matrix(tmp_X, tmp_X)
+            idx.append(tmp_idx[np.argmin(tmp_D.sum(axis=1))])
+
+    return idx
