@@ -128,7 +128,7 @@ def recover_full_coupling(
     return P_full
 
 
-def subsample_data(
+def downsample_data(
     X: np.ndarray,
     method: str = 'geosketch', 
     random_state: int = 1,
