@@ -118,8 +118,10 @@ def recover_full_coupling(
     C1 = distance_matrix(D1_sig, D2_to_D1, p=p_cost)
     C2 = distance_matrix(D1_to_D2, D2_sig, p=p_cost)
     C = 0.5 * ( C1 + C2 )
+    C += 1e-10
     C[np.where(C > thresh)] = 0
     C_sparse = sparse.coo_matrix(C)
+    C_sparse.data -= 1e-10
     C_sparse = C_sparse / C_sparse.max()
     m = 2
 
