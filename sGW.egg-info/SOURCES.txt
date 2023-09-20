@@ -1,0 +1,13 @@
+LICENSE
+pyproject.toml
+setup.cfg
+sGW.egg-info/PKG-INFO
+sGW.egg-info/SOURCES.txt
+sGW.egg-info/dependency_links.txt
+sGW.egg-info/not-zip-safe
+sGW.egg-info/requires.txt
+sGW.egg-info/top_level.txt
+sgw/SOT_solver.py
+sgw/__init__.py
+sgw/sgw.py
+sgw/utils.py

@@ -7,8 +7,8 @@ from . import utils
 
 from .sgw import (supervised_gromov_wasserstein)
 from .utils import (recover_full_coupling)
-from .utils import (downsample_data)
+from .utils import (subsample_data)
 
 __version__="0.0.1"
 
-__all__ = ['supervised_gromov_wasserstein', 'recover_full_coupling', 'downsample_data']
+__all__ = ['supervised_gromov_wasserstein', 'recover_full_coupling', 'subsample_data']
