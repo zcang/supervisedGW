@@ -7,6 +7,8 @@ Supervised Gromov-Wasserstein (sGW) optimal transport, a novel extension of Grom
 
 Python packages: 
 
+POT
+
 Networkx 
 
 SciPy
