@@ -4,7 +4,7 @@
   <img src="sgw_git.png" width="500" />
 </p>
 
-Supervised Gromov-Wasserstein (sGW) optimal transport, a novel extension of Gromov-Wasserstein by incorporating potential **infinity pattern** in the cost tensor. sGW enables the enforcement of application-induced constraints such as the preservation of pairwise distances by implementing the constraints as an **infinity pattern**.
+Supervised Gromov-Wasserstein (sGW) optimal transport, an extension of Gromov-Wasserstein that incorporates potential **infinity entries** in the cost tensor. These infinity entries enable sGW to enforce application-induced constraints on preserving **pairwise distances** to a certain extent.
 
 # Examples
 
