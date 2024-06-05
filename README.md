@@ -11,7 +11,7 @@ networkx
 
 geosketch 
 
-Kepler Mapper
+kepler-mapper 
 
 UMAP
 
