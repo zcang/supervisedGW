@@ -7,15 +7,17 @@ Supervised Gromov-Wasserstein (sGW) optimal transport, a novel extension of Grom
 
 Python packages: 
 
-networkx 
+Networkx 
 
-geosketch 
+SciPy
 
-kepler-mapper 
+Geosketch 
+
+Kepler-Mapper 
 
 UMAP
 
-scikit-learn
+Scikit-learn
 
 
 ## Tutorial
