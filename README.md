@@ -9,7 +9,7 @@ Supervised Gromov-Wasserstein (sGW) optimal transport, a novel extension of Grom
 # Examples
 
 <p align="center">
-  <img src="Ocexample_1_full.png" width="400" style="margin-right: 30px;" />
+  <img src="Ocexample_1_full.png" width="400" style="margin-right: 40px;" />
   <img src="Bioexample_3_real_two_embeddings.png" width="400" />
 </p>
 
